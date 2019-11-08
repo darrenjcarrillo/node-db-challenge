@@ -7,8 +7,14 @@ const router = express.Router();
 router.get("/", (req, res) => {
   projectModel
     .get(req.query)
-    .then(project => {
-      res.status(200).json(project);
+    .then(allProjects => {
+      let changeValue = allProjects.map(project => {
+        return {
+          ...project,
+          completed: project.completed === 0 ? false : true
+        };
+      });
+      res.json(changeValue);
     })
     .catch(err => {
       res.status(500).json({ error: "Failed to get cars" });
@@ -19,9 +25,12 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
   projectModel
     .getById(id)
-    .then(project => {
-      res.status(200).json(project);
-    })
+    .then(project =>
+      res.json({
+        ...project,
+        completed: project.completed === 0 ? false : true
+      })
+    )
     .catch(err => {
       res.status(500).json({ error: "Failed to get cars" });
     });
