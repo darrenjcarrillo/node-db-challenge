@@ -22,6 +22,7 @@ function getTaskResource(project_id) {
     .select(
       "projects.projectName",
       "resources.resourcesName",
+      "resources.Description",
       "task.taskName",
       "task.Description"
     )
@@ -39,3 +40,5 @@ function insert(project) {
       return getById(ids[0]);
     });
 }
+
+// Post Resource
