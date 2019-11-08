@@ -6,7 +6,7 @@ exports.up = function(knex) {
       .createTable("projects", tbl => {
         tbl.increments(); // Primary key
         tbl.string("projectName", 255).notNullable();
-        tbl.boolean("completed");
+        tbl.boolean("completed").notNullable();
         // tbl
         //   .integer("resources_id")
         //   .unsigned()
@@ -24,15 +24,17 @@ exports.up = function(knex) {
         //   .integer("project_id")
         //   .unsigned()
         //   .references("id")
-        //   .inTable("projects")
+        //   .inTable("projects")projec
         //   .onDelete("RESTRICT")
         //   .onUpdate("CASCADE");
+        tbl.string("Description", 255).notNullable();
       })
 
       .createTable("task", tbl => {
         tbl.increments(); // Primary key
         tbl.string("taskName", 255).notNullable();
         tbl.string("Description", 255).notNullable();
+        tbl.boolean("completed").notNullable();
       })
 
       // Project Task Table
@@ -63,4 +65,10 @@ exports.up = function(knex) {
   );
 };
 
-exports.down = function(knex) {};
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists("project_task")
+    .dropTableIfExists("task")
+    .dropTableIfExists("resources")
+    .dropTableIfExists("projects");
+};
