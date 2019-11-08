@@ -6,7 +6,11 @@ exports.up = function(knex) {
       .createTable("projects", tbl => {
         tbl.increments(); // Primary key
         tbl.string("projectName", 255).notNullable();
-        tbl.boolean("completed").notNullable();
+        tbl
+          .boolean("completed")
+          .notNullable()
+          .defaultTo(0);
+
         // tbl
         //   .integer("resources_id")
         //   .unsigned()
