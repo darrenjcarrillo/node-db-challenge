@@ -39,6 +39,13 @@ exports.up = function(knex) {
         tbl.string("taskName", 255).notNullable();
         tbl.string("Description", 255).notNullable();
         tbl.boolean("completed").notNullable();
+        tbl
+          .integer("project_id")
+          .unsigned()
+          .references("id")
+          .inTable("projects")
+          .onDelete("RESTRICT")
+          .onUpdate("CASCADE");
       })
 
       // Project Task Table

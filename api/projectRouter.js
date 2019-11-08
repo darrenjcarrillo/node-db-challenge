@@ -32,14 +32,9 @@ router.get("/:id/taskResource", (req, res) => {
 
   projectModel
     .getTaskResource(id)
-    .then(projectList => {
-      if (projectList.length) {
-        res.status(200).json(projectList);
-      } else {
-        res
-          .status(404)
-          .json({ message: "Could not find projectList for given scheme" });
-      }
+    .then(result => {
+      console.log(`GET BY ID`, result);
+      res.status(200).json(result);
     })
     .catch(err => {
       res.status(500).json({ message: "Failed to get projectList" });

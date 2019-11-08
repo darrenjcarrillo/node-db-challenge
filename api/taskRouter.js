@@ -6,14 +6,25 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   taskModel
-    .get(req.query)
+    .get()
     .then(task => {
       res.status(200).json(task);
     })
     .catch(err => {
-      res.status(500).json({ error: "Failed to get cars" });
+      res.status(500).json({ error: "Failed to get task" });
     });
 });
+
+// router.get("/", (req, res) => {
+//   taskModel
+//     .getAllTask()
+//     .then(task => {
+//       res.status(200).json(task);
+//     })
+//     .catch(err => {
+//       res.status(500).json({ error: "Failed to get task" });
+//     });
+// });
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
